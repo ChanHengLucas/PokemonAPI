@@ -4,16 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="36f90249-94bf-4eb6-9488-6c6e4d6f0ef6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pokemon API Testing.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/json-simple-1.1.1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/json.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PokemonGUI.java" afterDir="false" />
+    <list default="true" id="36f90249-94bf-4eb6-9488-6c6e4d6f0ef6" name="Changes" comment="image works, but buttons don't :(">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PokemonGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PokemonGUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,6 +59,18 @@
       <option name="presentableId" value="Default" />
       <updated>1713889912513</updated>
     </task>
+    <task id="LOCAL-00001" summary="image works, but buttons don't :(">
+      <created>1715263251715</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1715263251715</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="image works, but buttons don't :(" />
+    <option name="LAST_COMMIT_MESSAGE" value="image works, but buttons don't :(" />
   </component>
 </project>

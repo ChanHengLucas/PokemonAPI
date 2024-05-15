@@ -33,6 +33,8 @@ public class PokemonGUI implements ActionListener { // Guess the pokemon
     private JButton skipAnswer; // doesn't add correct streak counter; deduct one life out of three
     private String pokemonName;
     private int random;
+    private int answerStreak = 0;
+    private int lives = 3;
 
     public static void main(String[] args) {
         PokemonGUI p = new PokemonGUI();
@@ -56,7 +58,9 @@ public class PokemonGUI implements ActionListener { // Guess the pokemon
         displayPreviousAnswer = new JLabel(); // north
         inputAnswer = new JTextField(); // south
         submitAnswer = new JButton("Submit"); // south
+        submitAnswer.addActionListener(this);
         skipAnswer = new JButton("Skip"); // south
+        skipAnswer.addActionListener(this);
 
         mainFrame.setSize(1000, 800);
         int borderSize = 50;
@@ -65,9 +69,10 @@ public class PokemonGUI implements ActionListener { // Guess the pokemon
         mainPanel.add(centerPanel, BorderLayout.CENTER);
         mainPanel.add(southPanel, BorderLayout.SOUTH);
 
-        northPanel.setLayout(new GridLayout(1,2));
-        northPanel.add(displayPreviousAnswer);
+        northPanel.setLayout(new GridLayout(2,2));
         northPanel.add(answerStreakCounter);
+        northPanel.add(chancesRemaining);
+        northPanel.add(displayPreviousAnswer);
 
         centerPanel.add(displayImage);
 
@@ -112,7 +117,7 @@ public class PokemonGUI implements ActionListener { // Guess the pokemon
 
             System.out.println("Output from Server .... \n");
             while ((output = br.readLine()) != null) {
-                System.out.println(output);
+//                System.out.println(output);
                 totalJson += output;
             }
 
@@ -130,7 +135,7 @@ public class PokemonGUI implements ActionListener { // Guess the pokemon
         try {
             org.json.simple.JSONObject jsonObject = (org.json.simple.JSONObject) parser.parse(totalJson);
 //            System.out.println(jsonObject);
-            System.out.println("Name: " + jsonObject.get("name"));
+//            System.out.println("Name: " + jsonObject.get("name"));
             pokemonName = (String) jsonObject.get("name");
 
         } catch (Exception e) {
@@ -190,40 +195,47 @@ public class PokemonGUI implements ActionListener { // Guess the pokemon
 
     }
 
-    public void actionPerformed(ActionEvent e) {
-        int answerStreak = 0;
-        int lives = 3;
+    public void actionPerformed(ActionEvent e){
         Object buttonClicked = e.getSource();
-        if (buttonClicked == submitAnswer) {
-            String answer = inputAnswer.getText();
-            if (answer == pokemonName){
-                answerStreak++;
-                answerStreakCounter.setText("Answer Streak: " + String.valueOf(answerStreak));
-                displayPreviousAnswer.setText("Correct! The name of the previous Pokémon is " + pokemonName);
-                pullFromAPI();
-            } else {
+        if (lives > 0) {
+//        System.out.println("BUTTON CLICKED");
+            if (buttonClicked == submitAnswer) {
+                String answer = inputAnswer.getText();
+                //            System.out.println("answer detected");
+                if (answer.equals(pokemonName)) {
+                    answerStreak++;
+                    answerStreakCounter.setText("Answer Streak: " + String.valueOf(answerStreak));
+                    displayPreviousAnswer.setText("Correct! The name of the previous Pokémon is " + pokemonName);
+                    inputAnswer.setText("");
+                    pullFromAPI();
+                } else {
+                    //                System.out.println("\"" + answer + "\"");
+                    //                System.out.println("\"" + pokemonName + "\"");
+                    lives--;
+                    chancesRemaining.setText("Chances remaining: " + String.valueOf(lives));
+                    if (lives == 0) {
+                        displayPreviousAnswer.setText("GAME OVER!!! The name of the previous Pokémon is " + pokemonName);
+                        inputAnswer.setText("");
+                    } else {
+                        displayPreviousAnswer.setText("The name of the previous Pokémon is " + pokemonName);
+                        inputAnswer.setText("");
+                        pullFromAPI();
+                    }
+                }
+            }
+            if (buttonClicked == skipAnswer) {
                 lives--;
                 chancesRemaining.setText("Chances remaining: " + String.valueOf(lives));
-                if (lives == 0){
+                if (lives == 0) {
                     displayPreviousAnswer.setText("GAME OVER!!! The name of the previous Pokémon is " + pokemonName);
+                    inputAnswer.setText("");
                 } else {
                     displayPreviousAnswer.setText("The name of the previous Pokémon is " + pokemonName);
+                    inputAnswer.setText("");
                     pullFromAPI();
                 }
             }
         }
-        if (buttonClicked == skipAnswer){
-            lives--;
-            chancesRemaining.setText("Chances remaining: " + String.valueOf(lives));
-            if (lives == 0){
-                displayPreviousAnswer.setText("GAME OVER!!! The name of the previous Pokémon is " + pokemonName);
-
-            } else {
-                displayPreviousAnswer.setText("The name of the previous Pokémon is " + pokemonName);
-                pullFromAPI();
-            }
-        }
-
     }
 }
 
